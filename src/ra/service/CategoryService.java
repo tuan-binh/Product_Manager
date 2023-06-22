@@ -1,13 +1,14 @@
 package ra.service;
 
 
+import ra.controller.ProductController;
 import ra.modal.Brand;
 import ra.modal.Category;
+import ra.modal.Product;
 
 import java.util.ArrayList;
 
 public class CategoryService implements IBaseService<Category, Integer> {
-
     private ArrayList<Category> listCategory = new ArrayList<>();
 
     public CategoryService() {
@@ -36,15 +37,27 @@ public class CategoryService implements IBaseService<Category, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id, ArrayList<Product> list) {
         if (findById(id) != null) {
-            for (int i = 0; i < listCategory.size(); i++) {
-                if (listCategory.get(i).getId() == id) {
-                    listCategory.remove(i);
+            boolean checked = true;
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getCategory().getId() == id) {
+                    checked = false;
                     break;
                 }
             }
-            System.out.println(">>>========== Xóa thành công ==========<<<");
+
+            if (checked) {
+                for (int i = 0; i < listCategory.size(); i++) {
+                    if (listCategory.get(i).getId() == id) {
+                        listCategory.remove(i);
+                        break;
+                    }
+                }
+                System.out.println(">>>========== Xóa thành công ==========<<<");
+            } else {
+                System.out.println(">>>========== Xóa thất bại ==========<<<");
+            }
         } else {
             System.err.println(">>>========== Không có phần tử để xóa ==========<<<");
         }

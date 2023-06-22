@@ -1,12 +1,13 @@
 package ra.service;
 
+import ra.controller.ProductController;
 import ra.modal.Brand;
 import ra.modal.Color;
+import ra.modal.Product;
 
 import java.util.ArrayList;
 
 public class ColorService implements IBaseService<Color, Integer> {
-
     private ArrayList<Color> listColor = new ArrayList<>();
 
     public ColorService() {
@@ -35,15 +36,27 @@ public class ColorService implements IBaseService<Color, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Integer id, ArrayList<Product> list) {
         if (findById(id) != null) {
-            for (int i = 0; i < listColor.size(); i++) {
-                if (listColor.get(i).getId() == id) {
-                    listColor.remove(i);
+            boolean checked = true;
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getColor().getId() == id) {
+                    checked = false;
                     break;
                 }
             }
-            System.out.println(">>>========== Xóa thành công ==========<<<");
+
+            if (checked) {
+                for (int i = 0; i < listColor.size(); i++) {
+                    if (listColor.get(i).getId() == id) {
+                        listColor.remove(i);
+                        break;
+                    }
+                }
+                System.out.println(">>>========== Xóa thành công ==========<<<");
+            } else {
+                System.out.println(">>>========== Xóa thất bại ==========<<<");
+            }
         } else {
             System.err.println(">>>========== Không có phần tử để xóa ==========<<<");
         }

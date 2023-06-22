@@ -20,8 +20,8 @@ public class ProductController implements IController<Product, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
-        productService.delete(id);
+    public void delete(Integer id, ArrayList<Product> list) {
+        productService.delete(id, list);
     }
 
     @Override

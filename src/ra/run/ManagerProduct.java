@@ -116,7 +116,7 @@ public class ManagerProduct {
     public static void deleteProduct() {
         System.out.print("Bạn muốn xóa sản phẩm có id là: ");
         int id = InputMethod.getInteger();
-        productController.delete(id);
+        productController.delete(id, productController.getAll());
     }
 
     public static void searchProduct() {
@@ -249,7 +249,7 @@ public class ManagerProduct {
     public static void deleteColor() {
         System.out.print("Bạn muốn xóa màu có id là: ");
         int id = InputMethod.getInteger();
-        colorController.delete(id);
+        colorController.delete(id, productController.getAll());
     }
 
     // ==================== MENU BRAND ===================
@@ -327,7 +327,7 @@ public class ManagerProduct {
     public static void deleteBrand() {
         System.out.print("Bạn muốn xóa brand có id là: ");
         int id = InputMethod.getInteger();
-        brandController.delete(id);
+        brandController.delete(id, productController.getAll());
     }
 
     // ==================== MENU CATEGORY ===================
@@ -406,7 +406,7 @@ public class ManagerProduct {
     public static void deleteCategory() {
         System.out.print("Bạn muốn xóa category có id là: ");
         int id = InputMethod.getInteger();
-        categoryController.delete(id);
+        categoryController.delete(id, productController.getAll());
     }
 
 }

@@ -1,5 +1,7 @@
 package ra.controller;
 
+import ra.modal.Product;
+
 import java.util.ArrayList;
 
 public interface IController<T, E> {
@@ -7,7 +9,7 @@ public interface IController<T, E> {
 
     void save(T t);
 
-    void delete(E id);
+    void delete(E id, ArrayList<Product> list);
 
     T findById(E id);
 

@@ -1,6 +1,7 @@
 package ra.controller;
 
 import ra.modal.Category;
+import ra.modal.Product;
 import ra.service.CategoryService;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ public class CategoryController implements IController<Category, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
-        categoryService.delete(id);
+    public void delete(Integer id, ArrayList<Product> list) {
+        categoryService.delete(id, list);
     }
 
     @Override

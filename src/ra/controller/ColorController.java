@@ -1,6 +1,7 @@
 package ra.controller;
 
 import ra.modal.Color;
+import ra.modal.Product;
 import ra.service.ColorService;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ public class ColorController implements IController<Color, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
-        colorService.delete(id);
+    public void delete(Integer id, ArrayList<Product> list) {
+        colorService.delete(id, list);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ra.controller;
 
 import ra.modal.Brand;
+import ra.modal.Product;
 import ra.service.BrandService;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class BrandController implements IController<Brand, Integer> {
     }
 
     @Override
-    public void delete(Integer id) {
-        brandService.delete(id);
+    public void delete(Integer id, ArrayList<Product> list) {
+        brandService.delete(id, list);
     }
 
     @Override
