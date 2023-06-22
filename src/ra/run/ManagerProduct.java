@@ -10,6 +10,9 @@ import ra.modal.Category;
 import ra.modal.Color;
 import ra.modal.Product;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ManagerProduct {
 
     static BrandController brandController = new BrandController();
@@ -117,13 +120,63 @@ public class ManagerProduct {
     }
 
     public static void searchProduct() {
+        System.out.println("=============== SEARCH ===============");
+        System.out.println("1.Search theo color");
+        System.out.println("2.Search theo brand");
+        System.out.println("3.Search theo category");
+        System.out.println("4.Thoát");
+        System.out.println("======================================");
+        System.out.print("Mời bạn lựa chọn: ");
+        int choose = InputMethod.getInteger();
+        switch (choose) {
+            case 1:
+                searchByColor();
+                break;
+            case 2:
+                searchByBrand();
+                break;
+            case 3:
+                searchByCategory();
+                break;
+            case 4:
+                return;
+            default:
+                break;
+        }
+    }
 
+    public static void searchByColor() {
+        String text = InputMethod.getString();
+        for (Product p : productController.getAll()) {
+            if (p.getColor().getColorName().toLowerCase().equals(text.toLowerCase())) {
+                System.out.println(p);
+            }
+        }
+    }
+
+    public static void searchByBrand() {
+        String text = InputMethod.getString();
+        for (Product p : productController.getAll()) {
+            if (p.getBrand().getBrandName().toLowerCase().equals(text.toLowerCase())) {
+                System.out.println(p);
+            }
+        }
+    }
+
+    public static void searchByCategory() {
+        String text = InputMethod.getString();
+        for (Product p : productController.getAll()) {
+            if (p.getCategory().getCategoryName().toLowerCase().equals(text.toLowerCase())) {
+                System.out.println(p);
+            }
+        }
     }
 
     // ==================== MENU COLOR ===================
     public static void menuColor() {
         int choose = 0;
         while (choose != 4) {
+            showListColor();
             System.out.println(">>>============== MENU COLOR ==============<<<");
             System.out.println("1. Thêm Màu");
             System.out.println("2. Sửa Màu");
@@ -149,6 +202,24 @@ public class ManagerProduct {
                     break;
             }
         }
+    }
+
+    public static void showListColor() {
+        Map<String, Integer> listColor = new HashMap<>();
+        for (Color c : colorController.getAll()) {
+            listColor.put(c.getColorName(), 0);
+        }
+        for (Map.Entry<String, Integer> entry : listColor.entrySet()) {
+            for (Product p : productController.getAll()) {
+                if (entry.getKey().equals(p.getColor().getColorName())) {
+                    entry.setValue(entry.getValue() + 1);
+                }
+            }
+        }
+        for (Map.Entry<String, Integer> entry : listColor.entrySet()) {
+            System.out.printf("\nMàu: %5s | Số Lượng Sản Phẩm: %d", entry.getKey(), entry.getValue());
+        }
+        System.out.println();
     }
 
     public static void addColor() {
@@ -185,6 +256,7 @@ public class ManagerProduct {
     public static void menuBrand() {
         int choose = 0;
         while (choose != 4) {
+            showListBrand();
             System.out.println(">>>============== MENU BRAND ==============<<<");
             System.out.println("1. Thêm Brand");
             System.out.println("2. Sửa Brand");
@@ -210,6 +282,22 @@ public class ManagerProduct {
                     break;
             }
         }
+    }
+
+    public static void showListBrand() {
+        Map<String, Integer> listBrand = new HashMap<>();
+        for (Brand c : brandController.getAll()) {
+            listBrand.put(c.getBrandName(), 0);
+        }
+        for (Product p : productController.getAll()) {
+            String key = p.getBrand().getBrandName();
+            int value = listBrand.get(key) + 1;
+            listBrand.put(key, value);
+        }
+        for (Map.Entry<String, Integer> entry : listBrand.entrySet()) {
+            System.out.printf("\nBrand: %10s | Số Lượng Sản Phẩm: %d", entry.getKey(), entry.getValue());
+        }
+        System.out.println();
     }
 
     public static void addBrand() {
@@ -246,6 +334,7 @@ public class ManagerProduct {
     public static void menuCategory() {
         int choose = 0;
         while (choose != 4) {
+            showListCategory();
             System.out.println(">>>============== MENU CATEGORY ==============<<<");
             System.out.println("1. Thêm Category");
             System.out.println("2. Sửa Category");
@@ -271,6 +360,23 @@ public class ManagerProduct {
                     break;
             }
         }
+    }
+
+
+    public static void showListCategory() {
+        Map<String, Integer> listCategory = new HashMap<>();
+        for (Category c : categoryController.getAll()) {
+            listCategory.put(c.getCategoryName(), 0);
+        }
+        for (Product p : productController.getAll()) {
+            String key = p.getCategory().getCategoryName();
+            int value = listCategory.get(key) + 1;
+            listCategory.put(key, value);
+        }
+        for (Map.Entry<String, Integer> entry : listCategory.entrySet()) {
+            System.out.printf("\nCategory: %10s | Số Lượng Sản Phẩm: %d", entry.getKey(), entry.getValue());
+        }
+        System.out.println();
     }
 
     public static void addCategory() {

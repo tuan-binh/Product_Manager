@@ -11,6 +11,10 @@ public class ProductService<T> implements IBaseService<Product, Integer> {
 
     private ArrayList<Product> listProduct = new ArrayList<>();
 
+    public ProductService() {
+//        listProduct.add(new Product(1,""))
+    }
+
     public ArrayList<Product> getAll() {
         return listProduct;
     }
