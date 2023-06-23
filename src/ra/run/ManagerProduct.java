@@ -205,19 +205,19 @@ public class ManagerProduct {
     }
 
     public static void showListColor() {
-        Map<String, Integer> listColor = new HashMap<>();
+        Map<Color, Integer> listColor = new HashMap<>();
         for (Color c : colorController.getAll()) {
-            listColor.put(c.getColorName(), 0);
+            listColor.put(c, 0);
         }
-        for (Map.Entry<String, Integer> entry : listColor.entrySet()) {
+        for (Map.Entry<Color, Integer> entry : listColor.entrySet()) {
             for (Product p : productController.getAll()) {
-                if (entry.getKey().equals(p.getColor().getColorName())) {
+                if (entry.getKey().getColorName().equals(p.getColor().getColorName())) {
                     entry.setValue(entry.getValue() + 1);
                 }
             }
         }
-        for (Map.Entry<String, Integer> entry : listColor.entrySet()) {
-            System.out.printf("\nMàu: %5s | Số Lượng Sản Phẩm: %d", entry.getKey(), entry.getValue());
+        for (Map.Entry<Color, Integer> entry : listColor.entrySet()) {
+            System.out.print("\n" + entry.getKey() + " | Số Lượng Sản Phẩm: " + entry.getValue());
         }
         System.out.println();
     }
@@ -285,17 +285,21 @@ public class ManagerProduct {
     }
 
     public static void showListBrand() {
-        Map<String, Integer> listBrand = new HashMap<>();
+        Map<Brand, Integer> listBrand = new HashMap<>();
         for (Brand c : brandController.getAll()) {
-            listBrand.put(c.getBrandName(), 0);
+            listBrand.put(c, 0);
         }
-        for (Product p : productController.getAll()) {
-            String key = p.getBrand().getBrandName();
-            int value = listBrand.get(key) + 1;
-            listBrand.put(key, value);
+
+        for (Map.Entry<Brand, Integer> entry : listBrand.entrySet()) {
+            for (Product p : productController.getAll()) {
+                if (entry.getKey().getBrandName().equals(p.getBrand().getBrandName())) {
+                    entry.setValue(entry.getValue() + 1);
+                }
+            }
         }
-        for (Map.Entry<String, Integer> entry : listBrand.entrySet()) {
-            System.out.printf("\nBrand: %10s | Số Lượng Sản Phẩm: %d", entry.getKey(), entry.getValue());
+
+        for (Map.Entry<Brand, Integer> entry : listBrand.entrySet()) {
+            System.out.print("\n" + entry.getKey() + " | Số Lượng Sản Phẩm: " + entry.getValue());
         }
         System.out.println();
     }
@@ -362,19 +366,22 @@ public class ManagerProduct {
         }
     }
 
-
     public static void showListCategory() {
-        Map<String, Integer> listCategory = new HashMap<>();
+        Map<Category, Integer> listCategory = new HashMap<>();
         for (Category c : categoryController.getAll()) {
-            listCategory.put(c.getCategoryName(), 0);
+            listCategory.put(c, 0);
         }
-        for (Product p : productController.getAll()) {
-            String key = p.getCategory().getCategoryName();
-            int value = listCategory.get(key) + 1;
-            listCategory.put(key, value);
+
+        for (Map.Entry<Category, Integer> entry : listCategory.entrySet()) {
+            for (Product p : productController.getAll()) {
+                if (entry.getKey().getCategoryName().equals(p.getCategory().getCategoryName())) {
+                    entry.setValue(entry.getValue() + 1);
+                }
+            }
         }
-        for (Map.Entry<String, Integer> entry : listCategory.entrySet()) {
-            System.out.printf("\nCategory: %10s | Số Lượng Sản Phẩm: %d", entry.getKey(), entry.getValue());
+
+        for (Map.Entry<Category, Integer> entry : listCategory.entrySet()) {
+            System.out.printf("\n" + entry.getKey() + " | Số Lượng Sản Phẩm: " + entry.getValue());
         }
         System.out.println();
     }
